@@ -9,14 +9,16 @@ interface AlertModalProps {
   isOpen: boolean,
   onClose: () => void,
   onConfirm: () => void,
-  loading: boolean
+  loading: boolean,
+  entity: string
 };
 
 export const AlertModal = ({
   isOpen,
   onClose,
   onConfirm,
-  loading
+  loading,
+  entity
 }: AlertModalProps) => {
 
   const [mounted, setMounted] = useState(false);
@@ -31,8 +33,8 @@ export const AlertModal = ({
 
   return (
     <Modal
-      title="Delete Store?"
-      description="This will permanently delete this store and all data associated with it."
+      title={`Delete ${entity}?`}
+      description={`This will permanently delete this ${entity} and all data associated with it.`}
       isOpen={isOpen}
       onClose={onClose}
     >

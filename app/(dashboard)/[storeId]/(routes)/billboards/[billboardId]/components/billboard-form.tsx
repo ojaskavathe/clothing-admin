@@ -111,6 +111,7 @@ const BillboardForm = ({
         onClose={() => setOpen(false)}
         onConfirm={onDelete}
         loading={loading}
+        entity="billboard"
       />
       <div className="flex items-center justify-between">
         <Heading

@@ -13,19 +13,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import { BillboardColumn } from "./columns"
+import { CategoryColumn } from "./columns"
 import { toast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { AlertModal } from "@/components/modals/alert-modal";
 
 interface CellActionProps {
-  data: BillboardColumn;
+  data: CategoryColumn;
 };
 
 export const CellAction = ({ 
   data 
 } : { 
-  data : BillboardColumn 
+  data : CategoryColumn 
 }) => {
 
   const params = useParams();
@@ -37,26 +37,25 @@ export const CellAction = ({
   const onCopy = async () => {
     await navigator.clipboard.writeText(data.id);
     toast({
-      description: "Billboard ID copied."
+      description: "Category ID copied."
     });
   }
 
   const OnEdit = () => {
-    router.push(`/${params.storeId}/billboards/${data.id}`);
+    router.push(`/${params.storeId}/categories/${data.id}`);
   }
 
   const onDelete = async () => {
     try {
       setLoading(true)
-      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
       router.refresh();
       toast({
-        title: "Billboard deleted."
+        title: "Categories deleted."
       });
     } catch (error) {
       toast({
         title: "Oh no! Something went wrong.",
-        description: "Make sure you remove all categories using this billboard first."
       });
     } finally {
       setLoading(false);
@@ -82,7 +81,7 @@ export const CellAction = ({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={onCopy}>
-            Copy Billboard ID
+            Copy Category ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem  onClick={OnEdit}>Edit</DropdownMenuItem>

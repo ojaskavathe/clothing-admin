@@ -99,6 +99,7 @@ const SettingsForm = ({
         onClose={() => setOpen(false)}
         onConfirm={onDelete}
         loading={loading}
+        entity="store"
       />
       <div className="flex items-center justify-between">
         <Heading
