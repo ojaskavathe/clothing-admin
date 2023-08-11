@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { Category, Product, Variant, Image } from "@prisma/client";
+import { Category, Product } from "@prisma/client";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -24,8 +24,6 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { AlertModal } from "@/components/modals/alert-modal";
 import { useOrigin } from "@/hooks/use-origin";
-import { ImageUpload } from "@/components/image-upload";
-
 import {
   Command,
   CommandEmpty,
@@ -34,45 +32,30 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-
 import {
   Popover,
   PopoverContent,
   PopoverTrigger
 } from "@/components/ui/popover"
-import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
+import { cn } from "@/lib/utils";
 
 const FormSchema = z.object({
   name: z.string().min(1),
   categoryId: z.string().min(1),
-  isFeatured: z.boolean(),
-  variant: z.object({
-    id: z.string().min(1),
-    sizeId: z.string().min(1),
-    colorId: z.string().min(1),
-    price: z.number(),
-    images: z.array(z.string().min(1))
-  }).array(),
-  variantId: z.array(z.string().min(1)).nonempty(),
-  sizeId: z.array(z.string().min(1)).nonempty(),
-  colorId: z.array(z.string().min(1)).nonempty(),
+  isFeatured: z.boolean()
 });
 
 type ProductFormValues = z.infer<typeof FormSchema>;
 
 interface ProductFormProps {
-  initialData: (Product & {
-    variants: (Variant & {
-      images: Image[]
-    })[]
-  }) | null;
+  initialData: Product | null
   categories: Category[]
 };
 
 const ProductForm = ({
   initialData,
-  categories
+  categories,
 }: ProductFormProps) => {
 
   const params = useParams();
@@ -89,20 +72,10 @@ const ProductForm = ({
 
   const form = useForm({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      categoryId: initialData?.categoryId,
-      name: initialData?.name,
-      isFeatured: initialData?.isFeatured,
-      variantId: initialData?.variants.map((item) => { item.id }),
-      sizeId: initialData?.variants.map((item) => { item.sizeId }),
-      colorId: initialData?.variants.map((item) => { item.colorId }),
-    } || {
+    defaultValues: initialData || {
       name: '',
       categoryId: '',
       isFeatured: false,
-      variantId: [],
-      sizeId: [],
-      colorId: [],
     }
   });
 
@@ -266,20 +239,13 @@ const ProductForm = ({
                   <Switch
                     checked={field.value}
                     onCheckedChange={field.onChange}
-                    />
+                  />
                 </FormControl>
                 <FormLabel>Featured</FormLabel>
               </FormItem>
             )}
           />
 
-          <Heading
-            title="Variants"
-            description="The different SKU's of this product"
-          />
-
-          
-          
           <Button
             disabled={loading}
             className="ml-auto"

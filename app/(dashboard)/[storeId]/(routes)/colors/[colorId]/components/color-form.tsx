@@ -138,7 +138,7 @@ const ColorForm = ({
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
-          <div className="sm:grid grid-cols-2 gap-8">
+          <div className="space-y-6 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-8">
             <FormField
               control={form.control}
               name="name"
