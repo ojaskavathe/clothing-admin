@@ -102,9 +102,8 @@ model Variant {
   size      Size     @relation(fields: [sizeId], references: [id])
   colorId   String
   color     Color    @relation(fields: [colorId], references: [id])
-  price     Decimal
-  imageId   String
-  image     Image?
+  price     Int
+  imageUrl  String
   in_stock  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -114,13 +113,3 @@ model Variant {
   @@index([colorId])
 }
 
-model Image {
-  id        String   @id @default(uuid())
-  variantId String   @unique
-  variant   Variant  @relation(fields: [variantId], references: [id], onDelete: Cascade)
-  url       String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([variantId])
-}

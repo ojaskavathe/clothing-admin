@@ -43,6 +43,10 @@ export const CellAction = ({
     router.push(`/${params.storeId}/products/${data.id}`);
   }
 
+  const OnEditVariants = () => {
+    router.push(`/${params.storeId}/products/${data.id}/variants`);
+  }
+
   const onDelete = async () => {
     try {
       setLoading(true)
@@ -84,6 +88,7 @@ export const CellAction = ({
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem  onClick={OnEdit}>Edit</DropdownMenuItem>
+          <DropdownMenuItem  onClick={OnEditVariants}>Variants</DropdownMenuItem>
           <DropdownMenuItem  onClick={() => setOpen(true)}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

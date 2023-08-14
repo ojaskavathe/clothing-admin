@@ -83,11 +83,11 @@ const ProductForm = ({
     try {
       setLoading(true);
       if (initialData) {
-        await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`, data);
+        await axios.patch(`/api/${params.storeId}/products/${params.productId}`, data);
       } else {
-        await axios.post(`/api/${params.storeId}/billboards/`, data);
+        await axios.post(`/api/${params.storeId}/products/`, data);
       }
-      router.push(`/${params.storeId}/billboards`);
+      router.push(`/${params.storeId}/products`);
       router.refresh();
       toast({
         title: toastMessage
@@ -96,7 +96,7 @@ const ProductForm = ({
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: "There was a problem in saving your billboard."
+        description: "There was a problem in saving your product."
       });
     } finally {
       setLoading(false);
@@ -106,15 +106,15 @@ const ProductForm = ({
   const onDelete = async () => {
     try {
       setLoading(true)
-      await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
-      router.push(`/${params.storeId}/billboards`);
+      await axios.delete(`/api/${params.storeId}/products/${params.productId}`);
+      router.push(`/${params.storeId}/products`);
       toast({
-        title: "Billboard deleted."
+        title: "Product deleted."
       });
     } catch (error) {
       toast({
         title: "Oh no! Something went wrong.",
-        description: "Make sure you remove all categories using this billboard first."
+        description: "Make sure you remove all variants using this product first."
       });
     } finally {
       setLoading(false);
