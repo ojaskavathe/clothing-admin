@@ -1,3 +1,3 @@
-## Ecommerce Admin Template
+## clothing-admin
 
-A baseline for admin panels to control e-commerce sites.
+A flexible admin panel designed for a clothing store, that exposes its API to use in stores.
