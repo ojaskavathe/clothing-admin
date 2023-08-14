@@ -57,6 +57,7 @@ interface VariantInfo {
   sizeId: string;
   colorId: string;
   imageUrl: string;
+  price: number;
   in_stock: number;
 }
 
@@ -90,6 +91,7 @@ export const VariantsForm = ({
           sizeId: v.sizeId,
           colorId: v.colorId,
           imageUrl: v.imageUrl,
+          price: v.price,
           in_stock: v.in_stock
         }
       })
@@ -204,6 +206,7 @@ export const VariantsForm = ({
                       let distinct: {
                         colorID: string,
                         imageUrl: string,
+                        price: number,
                         in_stock: number
                       }[] = []
                       varInfo.forEach(v => {
@@ -211,6 +214,7 @@ export const VariantsForm = ({
                           distinct = [...distinct, { 
                             colorID: v.colorId, 
                             imageUrl: v.imageUrl,
+                            price: v.price,
                             in_stock: v.in_stock
                           }]
                         }
@@ -220,7 +224,8 @@ export const VariantsForm = ({
                           sizeId: s.id,
                           colorId: d.colorID,
                           imageUrl: d.imageUrl,
-                          in_stock: d.in_stock
+                          price: d.price,
+                          in_stock: d.in_stock,
                         }
                       }))
                     })
@@ -323,6 +328,7 @@ export const VariantsForm = ({
                                   sizeId: v.sizeId,
                                   colorId: v.colorId,
                                   imageUrl: url,
+                                  price: v.price,
                                   in_stock: v.in_stock
                                 }
                               } else {
@@ -336,6 +342,7 @@ export const VariantsForm = ({
                               sizeId: s.id,
                               colorId: c.id,
                               imageUrl: url,
+                              price: 0,
                               in_stock: 0
                             }
                           }))
